@@ -1,0 +1,25 @@
+# markdown_to_html_converter.py
+
+import markdown
+import sys
+
+def convert_markdown_to_html(markdown_file_path):
+    """Convert a Markdown file to HTML."""
+    try:
+        with open(markdown_file_path, 'r', encoding='utf-8') as md_file:
+            md_content = md_file.read()
+        html_content = markdown.markdown(md_content)
+        html_file_path = markdown_file_path.rsplit('.', 1)[0] + '.html'
+        with open(html_file_path, 'w', encoding='utf-8') as html_file:
+            html_file.write(html_content)
+        print(f"Conversion complete. HTML file saved as: {html_file_path}")
+    except FileNotFoundError:
+        print("Markdown file not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        convert_markdown_to_html(sys.argv[1])
+    else:
+        print("Please provide the path to the Markdown file as an argument.")
